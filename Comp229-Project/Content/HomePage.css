@@ -1,0 +1,96 @@
+﻿/* make the caption of carousel in the middle of the page */
+.carousel-caption.centered {
+    width:100%;
+    top: 0;
+    vertical-align: middle;
+    left: 0;
+    height:200px;
+    background: rgba(147, 200, 249, .3);
+    color: #fff;
+    font-weight: 200;
+    font-family: sans-serif Verdana;
+    border-radius: 0px;
+    padding: 15px;
+}
+
+.carousel-indicators li {
+    background-color: rgba(147, 200, 249, .8);
+}
+
+.item {
+    height: 800px;
+    width:1450px;
+}
+
+.item > img {
+    width: 100%;
+    
+}
+
+a.navbar-brand {
+    padding: 0;
+}
+
+.validationError {
+  color: #ed2727;
+}
+
+.sizeLock {
+    resize: none;
+}
+
+footer {
+    background: #3d4e72;
+    color: #f4f6f9;
+    height:200px;
+    bottom:0;
+    text-align: center;
+    padding-top:15px;
+}
+
+.home {
+    margin-top: 50px;
+    background: none;
+    border: none;
+}
+
+/* hover effect for navigation bar */
+.navbar-default .navbar-nav > li > a:hover {
+    border-bottom: 5px solid #44bbcf;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+}
+
+/* style login button so it stands out */
+.btn.btn-info.login {
+    height: 36px;
+    margin-top: 7px;
+    color: #fff;
+    padding-top: 7px;
+}
+
+.btn.btn-info.login:hover {
+    background-color: #44bbcf;
+    color:#fff;
+}
+
+.btn.btn-info.login-btn {
+    width:275px;
+    margin: 10px 0;
+}
+
+/* Center the login form */
+#MainContent_loginUser {
+    float: none;
+    margin: 0 auto;
+}
+
+/* Disable textbox appearence */
+.textBox {
+    border:none;
+    background-color: #F5F5F5;
+}
+
+
+
+
