@@ -1,0 +1,5 @@
+del "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\\..\..\Xml\Schemas\Oracle.DataAccess.Common.Configuration.Section.xsd"
+del "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\\..\..\Xml\Schemas\Oracle.UnmanagedDataAccess.Client.Configuration.Section.xsd"
+del "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\\..\..\Xml\Schemas\Oracle.ManagedDataAccess.Client.Configuration.Section.xsd"
+del "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\\..\..\Xml\Schemas\Oracle.UnmanagedDataAccess.Catalog.xml"
+del "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\\..\..\Xml\Schemas\Oracle.ManagedDataAccess.Catalog.xml"
