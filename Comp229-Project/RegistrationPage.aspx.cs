@@ -16,7 +16,7 @@ namespace Comp229_Project
         {
             
         }
-
+        
         protected void metricBtn_Click(object sender, EventArgs e)
         {
             // Clearing existing drop down lists

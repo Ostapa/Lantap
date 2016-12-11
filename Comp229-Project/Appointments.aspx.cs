@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Configuration;
 using Oracle.DataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 using System.Data;
 
 namespace Comp229_Project
