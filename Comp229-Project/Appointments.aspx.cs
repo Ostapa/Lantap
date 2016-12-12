@@ -12,73 +12,40 @@ namespace Comp229_Project
 {
     public partial class Appointments : System.Web.UI.Page
     {
-        List<string> listString = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             OracleDataReader reader;
-            OracleConnection connection = new OracleConnection(WebConfigurationManager.ConnectionStrings[Global.CONNECTION_STRING].ConnectionString);
-            OracleCommand command = new OracleCommand("SELECT AppointmentsID,Appointments.PatientID, Date, EmployeeID, DepartmentID FROM Appointments LEFT OUTER JOIN Accounts ON Appointments.PatientID = Accounts.PatientID WHERE Username = :Username", connection);
-            command.Parameters.Add(new OracleParameter(":Username", Session["username"]));
-            
-            try
+            using (OracleConnection connection = new OracleConnection(WebConfigurationManager.ConnectionStrings[Global.CONNECTION_STRING].ConnectionString))
             {
-                connection.Open();
-                reader = command.ExecuteReader();
-                AppointmentList.DataSource = reader;
-                AppointmentList.DataBind();
-                reader.Close();
-                connection.Close();
-            }
-            catch (Exception error)
-            {
-                Response.Write("Error occurred" + error.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+                OracleCommand command = new OracleCommand("getAppointments", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("user_name", OracleDbType.Varchar2, ParameterDirection.Input);
+                command.Parameters["user_name"].Value = Session["username"];
+                command.Parameters.Add("details", OracleDbType.RefCursor, ParameterDirection.Output);
 
-        protected void newAppBtn_Click(object sender, EventArgs e)
-        {
-            newAppForm.Visible = true;
-            OracleConnection connection = new OracleConnection(WebConfigurationManager.ConnectionStrings[Global.CONNECTION_STRING].ConnectionString);
-            string command = "SELECT SymptomName FROM Symptoms";
-            try
-            {
-                List<string> listOfSymptoms = new List<string>();
-                connection.Open();
-                OracleDataAdapter adapter = new OracleDataAdapter(command, connection);
-                DataTable table = new DataTable();
-                adapter.Fill(table);
-
-                symptomsListBox.DataSource = table;
-                symptomsListBox.DataBind();
-                symptomsListBox.DataTextField = "SymptomName";
-                symptomsListBox.DataBind();
-                connection.Close();
-            }
-            catch (Exception error)
-            {
-                Response.Write("Error occurred" + error.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-            addSymptomBtn.Visible = true;
-        }
-        protected void addSymptomBtn_Click(object sender, EventArgs e)
-        {
-            foreach (ListItem item in symptomsListBox.Items)
-            {
-                if (item.Selected)
+                try
                 {
-                    listString.Add(item.Text);
+                    connection.Open();
+                    reader = command.ExecuteReader();
+                    AppointmentList.DataSource = reader;
+                    AppointmentList.DataBind();
+                    reader.Close();
+                    connection.Close();
+                }
+                catch (Exception error)
+                {
+                    Response.Write("Error occurred" + error.Message);
+                }
+                finally
+                {
+                    connection.Close();
                 }
             }
-
-
+           
         }
+
+
+
+        
     }
 }

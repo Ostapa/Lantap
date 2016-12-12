@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Oracle.DataAccess.Client;
 using System.Web.Configuration;
 using System.Globalization;
+using System.Data;
 
 namespace Comp229_Project
 {
@@ -74,43 +75,37 @@ namespace Comp229_Project
             // add email verifying later
 
             OracleConnection connection = new OracleConnection(WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-            OracleCommand insertIntoPatients = new OracleCommand("INSERT INTO Patients (FirstMidName, LastName,Email, DateOfBirth,City, PostalCode, Address,Province, Gender,Height, Weight) VALUES (:FirstName, :LastName, :Email, :DateOfBirth, :City, :PostalCode, :Address, :Province, :Gender, :Height, :Weight)", connection);
-            OracleCommand insertIntoAccounts = new OracleCommand("INSERT INTO Accounts (Username, Password) VALUES (:Username, :Password)", connection);
+            OracleCommand comm = new OracleCommand("newPatient", connection);
+            comm.CommandType = CommandType.StoredProcedure;
 
             //:FirstName, :LastName, :Email, :DateOfBirth, :City, :PostalCode, :Address, :Province, :Gender, :Height, :Weight
-            insertIntoPatients.Parameters.Add(new OracleParameter(":FirstName", OracleDbType.Varchar2));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":LastName", OracleDbType.Varchar2));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":Email", OracleDbType.Varchar2));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":DateOfBirth", OracleDbType.Date));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":City", OracleDbType.Varchar2));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":PostalCode", OracleDbType.Char));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":Address", OracleDbType.Varchar2));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":Province", OracleDbType.Char));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":Gender", OracleDbType.Varchar2));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":Height", OracleDbType.Decimal));
-            insertIntoPatients.Parameters.Add(new OracleParameter(":Weight", OracleDbType.Decimal));
-
-
-            //:Username, :Password
-            insertIntoAccounts.Parameters.Add(new OracleParameter(":Username", OracleDbType.Varchar2));
-            insertIntoAccounts.Parameters.Add(new OracleParameter(":Password", OracleDbType.Varchar2));
-            
+            comm.Parameters.Add("First_Name", OracleDbType.Varchar2, ParameterDirection.Input);
+            comm.Parameters.Add("Last_Name", OracleDbType.Varchar2, ParameterDirection.Input);
+            comm.Parameters.Add("an_email", OracleDbType.Varchar2, ParameterDirection.Input);
+            comm.Parameters.Add("date_of_birth", OracleDbType.Varchar2, ParameterDirection.Input);
+            comm.Parameters.Add("a_city", OracleDbType.Varchar2, ParameterDirection.Input);
+            comm.Parameters.Add("postal_code", OracleDbType.Varchar2, ParameterDirection.Input);
+            comm.Parameters.Add("an_address", OracleDbType.Varchar2, ParameterDirection.Input);
+            comm.Parameters.Add("a_province", OracleDbType.Varchar2, ParameterDirection.Input);
+            comm.Parameters.Add("a_gender", OracleDbType.Varchar2, ParameterDirection.Input);
+            comm.Parameters.Add("a_height", OracleDbType.Decimal, ParameterDirection.Input);
+            comm.Parameters.Add("a_weight", OracleDbType.Decimal, ParameterDirection.Input);
 
             //:FirstName, :LastName, :Email, :DateOfBirth, :City, :PostalCode, :Address, :Province, :Gender, :Height, :Weight
-            insertIntoPatients.Parameters[":FirstName"].Value = txtFirstName.Text;
-            insertIntoPatients.Parameters[":LastName"].Value = txtLastName.Text;
-            insertIntoPatients.Parameters[":Email"].Value = txtEmail.Text;
-            insertIntoPatients.Parameters[":DateOfBirth"].Value = txtBirthDate.Text;
-            insertIntoPatients.Parameters[":City"].Value = txtCity.Text;
-            insertIntoPatients.Parameters[":PostalCode"].Value = txtPostalCode.Text;
-            insertIntoPatients.Parameters[":Address"].Value = txtAddress.Text;
-            insertIntoPatients.Parameters[":Province"].Value = ProvinceDropDownList.Text;
+            comm.Parameters["First_Name"].Value = txtFirstName.Text;
+            comm.Parameters["Last_Name"].Value = txtLastName.Text;
+            comm.Parameters["an_email"].Value = txtEmail.Text;
+            comm.Parameters["date_of_birth"].Value = txtBirthDate.Text;
+            comm.Parameters["a_city"].Value = txtCity.Text;
+            comm.Parameters["postal_code"].Value = txtPostalCode.Text;
+            comm.Parameters["an_address"].Value = txtAddress.Text;
+            comm.Parameters["a_province"].Value = ProvinceDropDownList.Text;
 
             // if user choses Metric
             if (metricBtn.Enabled == false)
             {
-                insertIntoPatients.Parameters[":Height"].Value = HeightDropDownList.Text;
-                insertIntoPatients.Parameters[":Weight"].Value = WeightDropDownList.Text;
+                comm.Parameters["a_height"].Value = Convert.ToDecimal(HeightDropDownList.Text);
+                comm.Parameters["a_weight"].Value = Convert.ToDecimal(WeightDropDownList.Text);
             }
 
             // if user choses Imperial
@@ -118,8 +113,8 @@ namespace Comp229_Project
             {
                 try
                 {               
-                    double heightImperial = Convert.ToDouble(HeightDropDownList.Text.ToString());
-                    double weightImperial = Convert.ToDouble(WeightDropDownList.Text.ToString());
+                    double heightImperial = Convert.ToDouble(HeightDropDownList.Text);
+                    double weightImperial = Convert.ToDouble(WeightDropDownList.Text);
 
                     // Converting from ft to cm
                     double height = heightImperial * 30.5;
@@ -127,34 +122,29 @@ namespace Comp229_Project
                     // Converting from lb to kg
                     double weight = weightImperial / 2.204622;
 
-                    insertIntoPatients.Parameters[":Height"].Value = height;
-                    insertIntoPatients.Parameters[":Weight"].Value = weight;
+                    comm.Parameters["a_height"].Value = height;
+                    comm.Parameters["a_weight"].Value = weight;
                 }
                 catch (Exception error)
                 {
-                    Response.Write("Error occures:"+error);
+                    Response.Write("Error occures:"+ error.Message);
                 }
             }
-
-            //:Username, :Password
-            insertIntoAccounts.Parameters[":Username"].Value = txtUsername.Text;
-            insertIntoAccounts.Parameters[":Password"].Value = txtPassword.Text;
 
 
             if (maleRdb.Checked == true)
             {
-                insertIntoPatients.Parameters[":Gender"].Value = "Male";
+                comm.Parameters["a_gender"].Value = "Male";
             }
             else
             {
-                insertIntoPatients.Parameters[":Gender"].Value = "Female";
+                comm.Parameters["a_gender"].Value = "Female";
             }
 
             try
             {
                 connection.Open();
-                insertIntoPatients.ExecuteNonQuery();
-                insertIntoAccounts.ExecuteNonQuery();
+                comm.ExecuteNonQuery();
                 connection.Close();
             }
             catch (Exception error)
@@ -165,7 +155,7 @@ namespace Comp229_Project
             finally
             {
                 connection.Close();
-                Response.Redirect("~/HomePage.aspx");
+                //Response.Redirect("~/HomePage.aspx");
             }
         }
     }

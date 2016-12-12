@@ -9,9 +9,6 @@
             <div class="row">
                 <div class="col-md-5 col-xs-12">
                     <img src="Assets/Images/profile_image.png" alt="Profile image" />
-                    <p class="lead">Edit profile picture</p>
-                    <%-- will add this feature --%>
-                    <p class="lead">Remove profile picture</p>
                 </div>
                 <div class="col-md-6 col-md-offset-1 well">
                     <h1>Personal Info</h1>
@@ -84,8 +81,8 @@
                     </asp:DataList>
                     <asp:Button ID="updateBtn" CssClass="btn btn-info" runat="server" Text="Update" OnClick="updateBtn_Click"/>
                     <asp:Button ID="deleteBtn" CssClass="btn btn-danger" runat="server" Text="Delete" OnClick="deleteBtn_Click" />
-                    <asp:Button ID="saveBtn" CssClass="btn btn-info" runat="server" Text="Save" OnClick="saveBtn_Click" />
-                    <asp:Button ID="cancleBtn" CssClass="btn btn-danger" runat="server" Text="Cancel" OnClick="cancleBtn_Click" /> 
+                    <asp:Button ID="saveBtn" CssClass="btn btn-info" Visible="false" runat="server" Text="Save" OnClick="saveBtn_Click" />
+                    <asp:Button ID="cancleBtn" CssClass="btn btn-danger" Visible="false" runat="server" Text="Cancel" OnClick="cancleBtn_Click" /> 
                 </div>
             </div>
         </div>

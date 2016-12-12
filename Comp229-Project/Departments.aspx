@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Departments.aspx.cs" Inherits="Comp229_Project.Departments" %>
 
 
-<%-- © LanTap Clinic - Aslan Mirsakiyev, Ostap Hamarnyk--%>
+<%-- © LanTap Clinic Ostap Hamarnyk--%>
 <%-- Comp229 Team Project --%>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">

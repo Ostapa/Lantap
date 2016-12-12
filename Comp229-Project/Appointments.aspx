@@ -2,7 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
-        <div> <%# Eval("AppointmentID") %>
             <asp:Repeater ID="AppointmentList" runat="server">
                 <HeaderTemplate>
             <table class="table">
@@ -19,7 +18,7 @@
                     </tr>
                 </thead>
                     <td><%# Eval("AppointmentsID") %></td>
-                    <td><%# Eval("Date") %></td>      
+                    <td><%# Eval("AppDate") %></td>      
                     <td><%# Eval("EmployeeID") %></td> 
                     <td><%# Eval("DepartmentID") %></td> 
             </tbody>
@@ -34,23 +33,4 @@
                 CssClass="btn btn-info"
                 Text="Create new appointment"
                 OnClick="newAppBtn_Click"/>
-    <div ID="newAppForm" runat="server" Visible="false">
-        <%-- Assuming our patient is enough to input valid information --%>
-        <div class="row">
-            <label class="col-md-4 col-xs-12" for="date">Pick the date for your appointment: </label>
-            <asp:TextBox ID="apointmentDate" CssClass="form-control col-md-4 col-xs-12" TextMode="Date" runat="server"></asp:TextBox>
-        </div>
-        <div class="row">
-            <label for="Symptoms">Choose your symptoms:</label><br />
-            <asp:ListBox ID="symptomsListBox" runat="server" SelectionMode="Multiple" Height="300"/>
-        </div>
-    </div>
-           <asp:Button  ID="addSymptomBtn" 
-                        runat="server" 
-                        CssClass="btn btn-info"
-                        Text="Add Symptom"
-                        Visible="false"
-                        OnClick="addSymptomBtn_Click"/>  
-        </div>
-    </div>
 </asp:Content>

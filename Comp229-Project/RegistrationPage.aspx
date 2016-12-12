@@ -38,55 +38,6 @@
                         required="true" />
                 </div>
 
-                <%--Username--%>
-                <label for="UsernameLabel">Username</label>
-                <asp:TextBox ID="txtUsername" CssClass="form-control" runat="server" />
-                <div>
-                    <asp:RequiredFieldValidator ID="UsernameReqFieldValidator"
-                        runat="server"
-                        CssClass="validationError"
-                        ControlToValidate="txtUsername"
-                        ErrorMessage="* Please enter Username"
-                        ValidationGroup="Registration"
-                        required="true" />
-                </div>
-
-                <%--Password--%>
-                <label for="newPasswordLabel">Password</label>
-                <asp:TextBox ID="txtPassword" CssClass="form-control" TextMode="Password" runat="server" />
-                <div>
-                    <asp:RequiredFieldValidator ID="newPasswordReqFieldValidator"
-                        runat="server"
-                        CssClass="validationError"
-                        ControlToValidate="txtPassword"
-                        ErrorMessage="* Please enter password"
-                        ValidationGroup="Registration"
-                        required="true" />
-                </div>
-
-                <%--Confirm Password--%>
-                <label for="confirmPassword">Confirm Password</label>
-                <asp:TextBox ID="txtConfirmPassword" CssClass="form-control" TextMode="Password" runat="server" />
-                <div>
-                    <asp:RequiredFieldValidator ID="txtConfirmPasswordReqFieldValidator"
-                        runat="server"
-                        CssClass="validationError"
-                        ControlToValidate="txtConfirmPassword"
-                        ErrorMessage="* Please re-enter password"
-                        ValidationGroup="Registration"
-                        required="true" />
-                </div>
-                <div>
-                    <asp:CompareValidator ID="newPasswordCompareValidator"
-                        runat="server"
-                        ControlToValidate="txtConfirmPassword"
-                        CssClass="validationError"
-                        ControlToCompare="txtPassword"
-                        ErrorMessage="Passwords don't match"
-                        ValidationGroup="Registration"
-                        ToolTip="Password must be the same" />
-                </div>
-
                 <%--Email--%>
                 <label for="emailLabel">Email</label>
                 <asp:TextBox ID="txtEmail"
